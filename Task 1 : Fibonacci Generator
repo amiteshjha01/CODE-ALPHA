@@ -1,0 +1,39 @@
+def fibonacci_iterative(n):
+    fib_sequence = [0, 1]
+    while len(fib_sequence) < n:
+        fib_sequence.append(fib_sequence[-1] + fib_sequence[-2])
+    return fib_sequence[:n]
+
+def fibonacci_recursive(n):
+    if n <= 0:
+        return []
+    elif n == 1:
+        return [0]
+    elif n == 2:
+        return [0, 1]
+    else:
+        fib_sequence = fibonacci_recursive(n-1)
+        fib_sequence.append(fib_sequence[-1] + fib_sequence[-2])
+        return fib_sequence
+
+def fibonacci_generator():
+    a, b = 0, 1
+    while True:
+        yield a
+        a, b = b, a + b
+
+if __name__ == "__main__":
+    n_terms = int(input("Enter the number of terms for the Fibonacci sequence: "))
+
+    # Iterative Method
+    print(f"Fibonacci sequence (first {n_terms} terms) using iterative method: {fibonacci_iterative(n_terms)}")
+
+    # Recursive Method
+    print(f"Fibonacci sequence (first {n_terms} terms) using recursive method: {fibonacci_recursive(n_terms)}")
+
+    # Generator Method
+    fib_gen = fibonacci_generator()
+    print(f"Fibonacci sequence (first {n_terms} terms) using generator method: ", end="")
+    for _ in range(n_terms):
+        print(next(fib_gen), end=" ")
+    print()
